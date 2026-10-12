@@ -1,0 +1,19 @@
+# Private source material: never commit or publish
+context/
+CLAUDE.md
+
+# Build output and caches
+dist/
+.astro/
+node_modules/
+
+# Environment and OS files
+.env
+.env.*
+.DS_Store
+
+# Local Claude Code permissions
+.claude/settings.local.json
+
+# Claude Code plan copies (private working notes)
+claude_plans/
