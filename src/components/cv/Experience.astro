@@ -72,22 +72,22 @@ const roles: Role[] = [
 ];
 ---
 
-<section class="cv-section" aria-labelledby="cv-experience">
+<section class="cv-section mt-16" aria-labelledby="cv-experience">
   <h2 id="cv-experience">Experience</h2>
-  <ol class="timeline">
+  <ol class="timeline mt-8">
     {
       roles.map((role) => (
-        <li class="role">
-          <h3>{role.title}</h3>
-          <p class="role-meta">
-            <span class="role-employer">{role.employer}</span>
-            <span class="role-location"> · {role.location}</span>
-          </p>
-          <p class="role-dates font-mono">
+        <li>
+          <p class="label">
             <time datetime={role.start}>{formatMonth(role.start)}</time> –{' '}
             {role.end ? <time datetime={role.end}>{formatMonth(role.end)}</time> : 'Present'}
           </p>
-          <ul class="role-bullets">
+          <h3 class="mt-2">{role.title}</h3>
+          <p class="mt-1">
+            <span class="font-semibold text-heading">{role.employer}</span>
+            <span class="text-muted"> · {role.location}</span>
+          </p>
+          <ul class="mt-4 grid max-w-[72ch] list-disc gap-2 pl-5 marker:text-flow">
             {role.bullets.map((bullet) => (
               <li>
                 <Proof text={bullet} />

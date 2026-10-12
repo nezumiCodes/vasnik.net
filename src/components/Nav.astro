@@ -8,19 +8,25 @@ const links = [
 ];
 const contactHref = '/contact/';
 const path = Astro.url.pathname;
+const linkClass =
+  'text-nav-fg no-underline hover:underline aria-[current=page]:underline aria-[current=page]:decoration-highlight aria-[current=page]:decoration-2 underline-offset-[0.45em]';
 ---
 
-<header class="site-header">
-  <nav class="site-nav" aria-label="Main">
-    <a class="wordmark" href={link('/')} aria-current={path === link('/') ? 'page' : undefined}>
+<header class="site-header on-plum relative border-b border-nav-line">
+  <nav class="page-wrap flex min-h-16 items-center gap-x-8 py-2" aria-label="Main">
+    <a
+      class="font-serif text-[1.25rem] leading-tight text-nav-fg no-underline hover:underline sm:text-[1.5rem]"
+      href={link('/')}
+      aria-current={path === link('/') ? 'page' : undefined}
+    >
       Vasiliki <em>(Celia)</em> Nikolaidi
     </a>
 
-    <ul class="nav-links">
+    <ul class="ml-auto hidden items-center gap-7 font-mono text-[0.8125rem] md:flex">
       {
         links.map(({ href, label }) => (
           <li>
-            <a href={link(href)} aria-current={isCurrent(href, path) ? 'page' : undefined}>
+            <a class={linkClass} href={link(href)} aria-current={isCurrent(href, path) ? 'page' : undefined}>
               {label}
             </a>
           </li>
@@ -28,17 +34,25 @@ const path = Astro.url.pathname;
       }
     </ul>
 
-    <a class="nav-cta" href={link(contactHref)} aria-current={isCurrent(contactHref, path) ? 'page' : undefined}>
+    <a
+      class="button hidden min-h-10 px-4 text-sm md:inline-flex"
+      href={link(contactHref)}
+      aria-current={isCurrent(contactHref, path) ? 'page' : undefined}
+    >
       Get in touch
     </a>
 
-    <details class="nav-menu">
+    <details class="nav-menu ml-auto md:hidden">
       <summary>Menu</summary>
-      <ul>
+      <ul class="on-plum absolute inset-x-0 top-full z-40 border-b border-nav-line font-mono text-[0.9375rem]">
         {
           [...links, { href: contactHref, label: 'Get in touch' }].map(({ href, label }) => (
-            <li>
-              <a href={link(href)} aria-current={isCurrent(href, path) ? 'page' : undefined}>
+            <li class="border-t border-nav-line">
+              <a
+                class={`page-wrap flex min-h-12 items-center ${linkClass}`}
+                href={link(href)}
+                aria-current={isCurrent(href, path) ? 'page' : undefined}
+              >
                 {label}
               </a>
             </li>

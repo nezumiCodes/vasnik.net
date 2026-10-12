@@ -12,13 +12,13 @@ const certifications = [
 ];
 ---
 
-<section class="cv-section" aria-labelledby="cv-certifications">
+<section class="cv-section mt-16" aria-labelledby="cv-certifications">
   <h2 id="cv-certifications">Certifications &amp; Training</h2>
-  <ul class="certification-list">
+  <ul class="node-list mt-6">
     {
       certifications.map((cert) => (
         <li>
-          <span class="certification-name">{cert.name}</span> – {cert.issuer}{' '}
+          <span class="font-semibold text-heading">{cert.name}</span> – {cert.issuer}{' '}
           <span class="font-mono">({cert.year})</span>
         </li>
       ))

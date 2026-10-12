@@ -24,15 +24,17 @@ const label = tagLabel(tag);
 ---
 
 <BaseLayout title={`Posts tagged ${label}`} description={`Blog posts about ${label}.`}>
-  <header class="page-header">
-    <p class="font-mono"><a href={link('/blog/tags/')}>All tags</a></p>
-    <h1>
-      Tagged <span class="font-mono">{label}</span>
-    </h1>
-    <p class="font-mono">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
-  </header>
+  <div class="page-wrap py-14">
+    <header class="mb-10">
+      <p class="label"><a class="text-label" href={link('/blog/tags/')}>All tags</a></p>
+      <h1 class="mt-2">
+        Tagged <em>{label}</em>
+      </h1>
+      <p class="mt-4 font-mono text-sm text-muted">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+    </header>
 
-  <div class="post-list">
-    {posts.map((post) => <PostCard post={post} />)}
+    <div class="grid gap-6 md:grid-cols-2">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
   </div>
 </BaseLayout>

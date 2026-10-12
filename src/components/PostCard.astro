@@ -13,14 +13,16 @@ const { post, headingLevel: Heading = 'h2' } = Astro.props;
 const { title, description, pubDate, tags, draft } = post.data;
 ---
 
-<article class="post-card">
-  <Heading class="post-card-title">
+<article class="card">
+  <p class="label">
+    <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+    {draft && <span> · Draft</span>}
+  </p>
+  <Heading class="card-title text-[1.625rem]">
     <a href={link(`/blog/${post.id}/`)}>{title}</a>
   </Heading>
-  <p class="post-card-meta font-mono">
-    <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
-    {draft && <span class="draft-badge"> · Draft</span>}
-  </p>
   <p>{description}</p>
-  <TagList tags={tags} />
+  <div class="mt-auto pt-1">
+    <TagList tags={tags} />
+  </div>
 </article>

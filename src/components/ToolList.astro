@@ -7,6 +7,6 @@ interface Props {
 const { tools, label = 'Tools' } = Astro.props;
 ---
 
-<ul class="tool-list" aria-label={label}>
-  {tools.map((tool) => <li class="font-mono">{tool}</li>)}
+<ul class="chips" aria-label={label}>
+  {tools.map((tool) => <li>{tool}</li>)}
 </ul>

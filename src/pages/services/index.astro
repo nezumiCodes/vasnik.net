@@ -13,14 +13,15 @@ const rendered = await Promise.all(services.map(async (service) => ({ service, .
   title="Services"
   description="Reporting automation, dashboards, low-code apps and data audits for teams that need their data working without manual effort."
 >
-  <header class="page-header">
-    <h1>Services</h1>
-    <p class="lead">
+  <header class="page-wrap pt-14 pb-10">
+    <p class="label">Freelance</p>
+    <h1 class="mt-2">Services</h1>
+    <p class="lead mt-6">
       Fixed-scope projects and day-rate support for teams that need their reporting, dashboards and internal tools to run
       without manual effort.
     </p>
-    <nav aria-label="Services on this page">
-      <ul class="service-index">
+    <nav class="mt-8" aria-label="Services on this page">
+      <ul class="chips">
         {
           services.map((service) => (
             <li>
@@ -34,33 +35,39 @@ const rendered = await Promise.all(services.map(async (service) => ({ service, .
 
   {
     rendered.map(({ service, Content }) => (
-      <section class="service" id={service.id} aria-labelledby={`${service.id}-heading`}>
-        <h2 id={`${service.id}-heading`}>{service.data.title}</h2>
-        <p class="lead">{service.data.summary}</p>
-        <p class="service-engagement font-mono">
-          {ENGAGEMENT_LABELS[service.data.engagement]}
-          {service.data.startingFrom && <> · {service.data.startingFrom}</>}
-        </p>
+      <section class="page-wrap scroll-mt-6" id={service.id} aria-labelledby={`${service.id}-heading`}>
+        <div class="grid gap-x-12 gap-y-8 border-t border-border py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+          <div>
+            <p class="label">
+              Service {String(service.data.order).padStart(2, '0')} · {ENGAGEMENT_LABELS[service.data.engagement]}
+              {service.data.startingFrom && <> · {service.data.startingFrom}</>}
+            </p>
+            <h2 id={`${service.id}-heading`} class="mt-2">
+              {service.data.title}
+            </h2>
+            <p class="lead mt-4">{service.data.summary}</p>
 
-        <h3>Outcomes</h3>
-        <ul class="service-outcomes">
-          {service.data.outcomes.map((outcome) => (
-            <li>{outcome}</li>
-          ))}
-        </ul>
+            <h3 class="mt-8 text-[1.375rem]">Outcomes</h3>
+            <ul class="node-list mt-3">
+              {service.data.outcomes.map((outcome) => (
+                <li>{outcome}</li>
+              ))}
+            </ul>
 
-        <h3>Tools</h3>
-        <ToolList tools={service.data.tools} label={`Tools for ${service.data.title}`} />
+            <h3 class="mt-8 mb-3 text-[1.375rem]">Tools</h3>
+            <ToolList tools={service.data.tools} label={`Tools for ${service.data.title}`} />
 
-        <div class="prose">
-          <Content />
+            <p class="mt-8">
+              <a class="button" href={link('/contact/')}>
+                Discuss this<span class="sr-only"> service: {service.data.title}</span>
+              </a>
+            </p>
+          </div>
+
+          <div class="prose">
+            <Content />
+          </div>
         </div>
-
-        <p>
-          <a class="button" href={link('/contact/')}>
-            Discuss this<span class="sr-only"> service: {service.data.title}</span>
-          </a>
-        </p>
       </section>
     ))
   }

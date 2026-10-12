@@ -4,10 +4,25 @@
  * "done" node beside the headline, with one secondary accent node.
  * Colours come from theme tokens in global.css (light: raspberry done node,
  * plum accent; dark: butter done node, raspberry accent), never from here.
+ *
+ * The un-animated state is the finished graphic. Motion is added only when the
+ * visitor has no reduced-motion preference, and all of it ends within 5 s
+ * (WCAG 2.2.2), so no pause control is needed.
  */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
-<svg class="flow-graphic" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+<svg
+  class:list={['flow-graphic', className]}
+  viewBox="0 0 600 400"
+  preserveAspectRatio="xMidYMid meet"
+  aria-hidden="true"
+  focusable="false"
+>
   <g class="flow-lines" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
     <path class="flow-line" pathLength="1" d="M0 60C160 60 260 190 480 200" />
     <path class="flow-line" pathLength="1" d="M0 140C150 140 300 200 480 200" />
@@ -24,3 +39,112 @@
   <circle class="flow-done-ring" cx="480" cy="200" r="24" fill="none" stroke="currentColor" stroke-width="2" />
   <circle class="flow-done" cx="480" cy="200" r="14" />
 </svg>
+
+<style>
+  .flow-graphic {
+    color: var(--c-flow);
+  }
+
+  .flow-node {
+    fill: var(--c-bg);
+  }
+
+  .flow-node-alt {
+    fill: var(--c-node-alt);
+    stroke: var(--c-node-alt);
+  }
+
+  .flow-done {
+    fill: var(--c-node-done);
+  }
+
+  .flow-done-ring {
+    stroke: var(--c-node-done);
+  }
+
+  .flow-done,
+  .flow-done-ring,
+  .flow-node,
+  .flow-node-alt {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .flow-line {
+      stroke-dasharray: 1 1;
+      stroke-dashoffset: 1;
+      animation: flow-draw 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    .flow-line:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .flow-line:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .flow-line:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    .flow-line-out {
+      animation-duration: 0.4s;
+      animation-delay: 1.4s;
+    }
+
+    .flow-node,
+    .flow-node-alt {
+      opacity: 0;
+      animation: flow-appear 0.4s ease-out 0.8s forwards;
+    }
+
+    .flow-done {
+      animation: flow-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s both;
+    }
+
+    /* Two pulses, ending at rest by about 4.6 s. */
+    .flow-done-ring {
+      animation: flow-pulse 1.6s ease-in-out 1.4s 2 both;
+    }
+  }
+
+  @keyframes flow-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes flow-appear {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes flow-pop {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes flow-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.25;
+      transform: scale(1.3);
+    }
+  }
+</style>

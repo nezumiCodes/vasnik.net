@@ -19,11 +19,11 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = p
 ---
 
 <BaseLayout title={title} description={description} type="article" publishedTime={pubDate} modifiedTime={updatedDate}>
-  <article class="post">
-    <header class="post-header">
-      <p class="post-kicker font-mono"><a href={link('/blog/')}>Blog</a></p>
-      <h1>{title}</h1>
-      <p class="post-meta font-mono">
+  <article class="page-wrap max-w-[48rem] py-14">
+    <header>
+      <p class="label"><a class="text-label" href={link('/blog/')}>Blog</a></p>
+      <h1 class="mt-2">{title}</h1>
+      <p class="mt-4 mb-4 font-mono text-sm text-muted">
         <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
         {
           updatedDate && (
@@ -37,24 +37,26 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = p
       <TagList tags={tags} />
     </header>
 
-    {heroImage && heroAlt && <Image class="post-hero" src={heroImage} alt={heroAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" />}
+    {heroImage && heroAlt && <Image class="mt-10 w-full rounded-md" src={heroImage} alt={heroAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" />}
 
-    <div class="prose">
+    <div class="prose mt-10">
       <slot />
     </div>
   </article>
 
   {
     (newer || older) && (
-      <nav class="post-pager" aria-label="More posts">
+      <nav class="page-wrap grid max-w-[48rem] gap-4 sm:grid-cols-2" aria-label="More posts">
         {newer && (
-          <a href={link(`/blog/${newer.id}/`)} rel="prev">
-            <span class="font-mono">Newer</span> {newer.data.title}
+          <a class="card card-title text-heading no-underline hover:underline" href={link(`/blog/${newer.id}/`)} rel="prev">
+            <span class="label">Newer</span>
+            <span class="font-serif text-[1.375rem] leading-tight">{newer.data.title}</span>
           </a>
         )}
         {older && (
-          <a href={link(`/blog/${older.id}/`)} rel="next">
-            <span class="font-mono">Older</span> {older.data.title}
+          <a class="card card-title text-heading no-underline hover:underline sm:col-start-2 sm:text-right" href={link(`/blog/${older.id}/`)} rel="next">
+            <span class="label">Older</span>
+            <span class="font-serif text-[1.375rem] leading-tight">{older.data.title}</span>
           </a>
         )}
       </nav>

@@ -9,25 +9,32 @@ const tags = countTags(await getPublishedPosts());
 ---
 
 <BaseLayout title="Tags" description="Blog posts grouped by topic.">
-  <header class="page-header">
-    <p class="font-mono"><a href={link('/blog/')}>Blog</a></p>
-    <h1>Tags</h1>
-  </header>
+  <div class="page-wrap py-14">
+    <header class="mb-10">
+      <p class="label"><a class="text-label" href={link('/blog/')}>Blog</a></p>
+      <h1 class="mt-2">Tags</h1>
+    </header>
 
-  {
-    tags.length > 0 ? (
-      <ul class="tag-index">
-        {tags.map(({ tag, count }) => (
-          <li>
-            <a href={link(`/blog/tags/${tag}/`)}>{tagLabel(tag)}</a>{' '}
-            <span class="font-mono">
-              ({count} {count === 1 ? 'post' : 'posts'})
-            </span>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <BlogEmpty />
-    )
-  }
+    {
+      tags.length > 0 ? (
+        <ul class="chips">
+          {tags.map(({ tag, count }) => (
+            <li>
+              <a href={link(`/blog/tags/${tag}/`)}>
+                {tagLabel(tag)}
+                <span class="ml-1.5 text-muted" aria-hidden="true">
+                  {count}
+                </span>
+                <span class="sr-only">
+                  , {count} {count === 1 ? 'post' : 'posts'}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <BlogEmpty />
+      )
+    }
+  </div>
 </BaseLayout>

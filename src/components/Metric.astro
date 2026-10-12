@@ -7,7 +7,7 @@ interface Props {
 const { value, label } = Astro.props;
 ---
 
-<div class="metric">
-  <dt class="metric-label">{label}</dt>
-  <dd class="metric-value font-mono">{value}</dd>
+<div class="flex flex-col border-t border-border pt-4">
+  <dt class="text-fg">{label}</dt>
+  <dd class="order-first mb-2 font-mono text-[2.5rem] leading-none font-medium text-heading">{value}</dd>
 </div>

@@ -5,11 +5,13 @@ import { link } from '@/lib/link';
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-  <ul class="footer-links">
-    <li><a href={CONTACT.linkedin} rel="me noopener">LinkedIn</a></li>
-    <li><a href={`${link('/')}rss.xml`}>RSS</a></li>
-    <li><a href={link('/contact/')}>Contact</a></li>
-  </ul>
-  <p class="font-mono">© {year} {SITE.name}</p>
+<footer class="site-footer mt-24 border-t border-border">
+  <div class="page-wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-8 font-mono text-[0.8125rem]">
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      <li><a class="text-fg" href={CONTACT.linkedin} rel="me noopener">LinkedIn</a></li>
+      <li><a class="text-fg" href={`${link('/')}rss.xml`}>RSS</a></li>
+      <li><a class="text-fg" href={link('/contact/')}>Contact</a></li>
+    </ul>
+    <p class="text-muted">© {year} {SITE.name}</p>
+  </div>
 </footer>

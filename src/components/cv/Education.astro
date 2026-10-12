@@ -25,19 +25,19 @@ const degrees = [
 ];
 ---
 
-<section class="cv-section" aria-labelledby="cv-education">
+<section class="cv-section mt-16" aria-labelledby="cv-education">
   <h2 id="cv-education">Education</h2>
-  <ul class="education-list">
+  <ul class="education-list mt-6 grid gap-6 md:grid-cols-2">
     {
       degrees.map((item) => (
-        <li>
-          <h3>
-            {item.degree} <span class="education-result font-mono">{item.result}</span>
+        <li class="card">
+          <h3 class="text-[1.375rem]">
+            {item.degree} <span class="chip ml-1 align-middle">{item.result}</span>
           </h3>
           <p>
             {item.institution} · {item.location}
           </p>
-          <p class="font-mono">
+          <p class="label">
             <time datetime={item.start}>{formatMonth(item.start)}</time> – <time datetime={item.end}>{formatMonth(item.end)}</time>
           </p>
         </li>

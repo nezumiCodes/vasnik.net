@@ -13,13 +13,13 @@ const languages = [
 ];
 ---
 
-<section class="cv-section" aria-labelledby="cv-languages">
+<section class="cv-section mt-16" aria-labelledby="cv-languages">
   <h2 id="cv-languages">Languages</h2>
-  <dl class="language-list">
+  <dl class="mt-6 grid gap-x-10 gap-y-3 sm:grid-cols-2">
     {
       languages.map((item) => (
-        <div>
-          <dt>{item.language}</dt>
+        <div class="flex gap-4 border-t border-border pt-3">
+          <dt class="w-20 shrink-0 font-semibold text-heading">{item.language}</dt>
           <dd>
             <span class="font-mono">{item.level}</span>
             {item.evidence && <> ({item.evidence})</>}

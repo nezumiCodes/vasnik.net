@@ -22,13 +22,13 @@ const sentences = [
 
 {
   variant === 'lead' ? (
-    <p class="lead">
+    <p class="lead mt-6">
       <Proof text={sentences[0]} />
     </p>
   ) : (
-    <section class="cv-section" aria-labelledby="cv-summary">
+    <section class="cv-section mt-12" aria-labelledby="cv-summary">
       <h2 id="cv-summary">Summary</h2>
-      <p>
+      <p class="lead mt-4 max-w-[68ch]">
         {sentences.map((sentence, index) => (
           <>
             {index > 0 && ' '}
