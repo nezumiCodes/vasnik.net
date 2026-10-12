@@ -1,0 +1,101 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Experience
+ * Copied word for word. Mark numbers with backticks to render them in mono.
+ * `start` / `end` are YYYY-MM for <time datetime>; `end: null` means Present.
+ */
+import Proof from '@/components/Proof.astro';
+import { formatMonth } from '@/lib/dates';
+
+interface Role {
+  title: string;
+  employer: string;
+  location: string;
+  start: string;
+  end: string | null;
+  bullets: string[];
+}
+
+const roles: Role[] = [
+  {
+    title: 'Senior Data Analyst',
+    employer: 'We Are With You',
+    location: 'Wigan, UK (Hybrid)',
+    start: '2024-10',
+    end: null,
+    bullets: [
+      'Built ETL pipelines and automated reporting in SQL, Python and Google Cloud Platform (BigQuery, Cloud Functions, Looker), cutting manual work on recurring reports by `60%`',
+      'Developed a Python risk-flagging tool that identifies clients at elevated risk of liver cirrhosis from blood tests and treatment data (substance use, injecting history, homelessness), reducing unnecessary FibroScan referrals by `22%`',
+      'Built a Power Apps canvas app with SharePoint for FibroScan appointment tracking when the case management system (CMS) equivalent was over a year away, delivering it in `3 weeks`; now used by all clinical staff in the service',
+      'Delivered Power BI dashboards on CMS and Google Sheets data, used by `60+` managers across `8` services to track clinical and prescribing reviews, discharges and drop-out risk, contributing to a `35%` improvement in client retention',
+      'Automated review emails to every We Are With You service with Power Automate, and piloted Google Apps Script blood-borne virus testing reminders in Google Chat, successfully trialled in Wigan ahead of wider roll-out',
+      'Managed monthly national treatment database submissions (NDTMS, CJIT) for `3,000+` clients, resolving data quality issues with the CMS and raising continuity-of-care scores to `80%`, the highest in the North West',
+      'Trained `100+` staff on the CMS and GDPR, supported CMS data migrations for `2` services, and partnered with managers and commissioners on data to secure funding for `3` new specialised teams',
+    ],
+  },
+  {
+    title: 'Data Analyst',
+    employer: 'QA Ltd',
+    location: 'Birmingham, UK (Remote)',
+    start: '2023-09',
+    end: '2024-07',
+    bullets: [
+      'Automated reminders, data refreshes and recurring reporting tasks with Power Automate and Office Scripts, reducing manual effort by over `50%`',
+      'Developed an NLP and machine learning tool in Python that analysed qualitative staff and learner feedback to identify skills gaps and recommend targeted training across `4` teaching and operational teams',
+      'Built Power BI and Tableau dashboards on data from SharePoint, Microsoft Forms and myQA Portal, cleaned and modelled in Python, Power Query and DAX, giving `30+` stakeholders self-service access to KPIs such as learner progress and completion rates, replacing `20+` manual weekly reports',
+      'Customised SharePoint project boards and Gantt views with JSON column formatting, improving project tracking and visibility for `30+` employees',
+      'Gathered reporting and automation requirements from operations teams, prioritised requests by business impact, and cleared a backlog of `20+` requests through new dashboards and flows',
+    ],
+  },
+  {
+    title: 'Data Lecturer & Module Leader',
+    employer: 'QA Ltd',
+    location: 'Birmingham, UK (Hybrid)',
+    start: '2022-03',
+    end: '2023-09',
+    bullets: [
+      'Taught data science, data analytics, business intelligence and advanced database systems from undergraduate to Master’s level (Levels `4–7`) for Ulster University, University of Roehampton and Solent University',
+      'Led modules across Levels `3–7` in data science, web development and computing, managing teams of `3–5` lecturers per module; designed assessments and marking criteria, ran standardisation meetings and moderated marking for consistent quality',
+    ],
+  },
+  {
+    title: 'Research Software Engineer',
+    employer: 'University of Patras',
+    location: 'Patras, Greece (Remote, Part-time)',
+    start: '2019-03',
+    end: '2022-06',
+    bullets: [
+      'Developed a new family of onset and offset detection algorithms for electromyography (EMG) signals based on the Teager-Kaiser Energy Operator (TKEO), maintaining low error rates at signal-to-noise ratios above `12 dB`',
+      'Built signal acquisition and analysis pipelines in Python and C++ for EMG data from `30` participants, supporting the development of bionic prosthetic arms',
+    ],
+  },
+];
+---
+
+<section class="cv-section" aria-labelledby="cv-experience">
+  <h2 id="cv-experience">Experience</h2>
+  <ol class="timeline">
+    {
+      roles.map((role) => (
+        <li class="role">
+          <h3>{role.title}</h3>
+          <p class="role-meta">
+            <span class="role-employer">{role.employer}</span>
+            <span class="role-location"> · {role.location}</span>
+          </p>
+          <p class="role-dates font-mono">
+            <time datetime={role.start}>{formatMonth(role.start)}</time> –{' '}
+            {role.end ? <time datetime={role.end}>{formatMonth(role.end)}</time> : 'Present'}
+          </p>
+          <ul class="role-bullets">
+            {role.bullets.map((bullet) => (
+              <li>
+                <Proof text={bullet} />
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</section>

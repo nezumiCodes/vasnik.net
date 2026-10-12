@@ -1,0 +1,86 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Skills
+ * Copied word for word, one array item per comma-separated skill.
+ * Tool groups render in mono (proof); the Professional group renders in sans (voice).
+ */
+import ToolList from '@/components/ToolList.astro';
+
+const toolGroups = [
+  {
+    name: 'Data Analysis',
+    items: [
+      'SQL (PostgreSQL, SQL Server, MySQL)',
+      'Python (pandas, polars, NumPy, scikit-learn)',
+      'Excel (Power Query)',
+      'Alteryx',
+      'OpenRefine',
+      'Jupyter Notebooks',
+      'statistical analysis',
+      'EDA',
+    ],
+  },
+  {
+    name: 'BI & Visualisation',
+    items: ['Power BI (DAX)', 'Looker / Looker Studio', 'Tableau', 'matplotlib', 'plotly'],
+  },
+  {
+    name: 'Data Engineering & Cloud',
+    items: [
+      'ETL/ELT pipelines',
+      'data modelling',
+      'data quality and validation',
+      'Google Cloud Platform (BigQuery, Cloud Functions)',
+      'Microsoft Fabric',
+      'Azure',
+      'AWS',
+      'Docker',
+      'Git/GitHub',
+    ],
+  },
+  {
+    name: 'Automation & Low-code',
+    items: [
+      'Power Automate (cloud flows)',
+      'Power Apps (canvas apps, Power Fx)',
+      'SharePoint',
+      'Office Scripts',
+      'Make',
+      'Google Apps Script',
+      'Excel VBA',
+      'REST APIs',
+    ],
+  },
+];
+
+const professional = {
+  name: 'Professional',
+  items: [
+    'stakeholder management',
+    'requirements gathering',
+    'data governance and GDPR',
+    'process improvement',
+    'training and documentation',
+  ],
+};
+---
+
+<section class="cv-section" aria-labelledby="cv-skills">
+  <h2 id="cv-skills">Skills</h2>
+  <div class="skill-groups">
+    {
+      toolGroups.map((group) => (
+        <div class="skill-group">
+          <h3>{group.name}</h3>
+          <ToolList tools={group.items} label={group.name} />
+        </div>
+      ))
+    }
+    <div class="skill-group">
+      <h3>{professional.name}</h3>
+      <ul class="skill-list" aria-label={professional.name}>
+        {professional.items.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+---
+import { splitProof } from '@/lib/proof';
+
+interface Props {
+  text: string;
+}
+
+const parts = splitProof(Astro.props.text);
+---
+
+{parts.map((part) => (part.mono ? <span class="font-mono">{part.text}</span> : part.text))}

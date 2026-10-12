@@ -1,0 +1,15 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { link } from '@/lib/link';
+---
+
+<BaseLayout title="Message sent" description="Thanks for getting in touch." noindex>
+  <header class="page-header">
+    <h1>Thanks, your message is on its way</h1>
+    <p class="lead">I'll reply as soon as I can.</p>
+  </header>
+  <p>
+    In the meantime, see the <a href={link('/experience/')}>experience</a> behind the
+    <a href={link('/services/')}>services</a>.
+  </p>
+</BaseLayout>

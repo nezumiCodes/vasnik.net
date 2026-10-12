@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import TagList from '@/components/TagList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { formatDate, isoDate } from '@/lib/dates';
+import { link } from '@/lib/link';
+import type { Post } from '@/lib/posts';
+
+interface Props {
+  post: Post;
+  /** Next-newest post */
+  newer?: Post;
+  /** Next-oldest post */
+  older?: Post;
+}
+
+const { post, newer, older } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = post.data;
+---
+
+<BaseLayout title={title} description={description} type="article" publishedTime={pubDate} modifiedTime={updatedDate}>
+  <article class="post">
+    <header class="post-header">
+      <p class="post-kicker font-mono"><a href={link('/blog/')}>Blog</a></p>
+      <h1>{title}</h1>
+      <p class="post-meta font-mono">
+        <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+        {
+          updatedDate && (
+            <>
+              {' '}
+              · Updated <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+            </>
+          )
+        }
+      </p>
+      <TagList tags={tags} />
+    </header>
+
+    {heroImage && heroAlt && <Image class="post-hero" src={heroImage} alt={heroAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" />}
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+
+  {
+    (newer || older) && (
+      <nav class="post-pager" aria-label="More posts">
+        {newer && (
+          <a href={link(`/blog/${newer.id}/`)} rel="prev">
+            <span class="font-mono">Newer</span> {newer.data.title}
+          </a>
+        )}
+        {older && (
+          <a href={link(`/blog/${older.id}/`)} rel="next">
+            <span class="font-mono">Older</span> {older.data.title}
+          </a>
+        )}
+      </nav>
+    )
+  }
+</BaseLayout>

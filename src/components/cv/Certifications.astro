@@ -1,0 +1,27 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Certifications & Training
+ * Copied word for word.
+ */
+
+const certifications = [
+  { name: 'Alteryx Designer Advanced', issuer: 'Alteryx', year: '2024' },
+  { name: 'BCS Foundation Certificate in Business Analysis', issuer: 'BCS', year: '2024' },
+  { name: 'Mastering Microsoft Power Automate', issuer: 'QA', year: '2024' },
+  { name: 'Big Data with PySpark', issuer: 'DataCamp', year: '2024' },
+];
+---
+
+<section class="cv-section" aria-labelledby="cv-certifications">
+  <h2 id="cv-certifications">Certifications &amp; Training</h2>
+  <ul class="certification-list">
+    {
+      certifications.map((cert) => (
+        <li>
+          <span class="certification-name">{cert.name}</span> – {cert.issuer}{' '}
+          <span class="font-mono">({cert.year})</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

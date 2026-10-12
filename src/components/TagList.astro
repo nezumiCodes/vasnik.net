@@ -1,0 +1,24 @@
+---
+import { link } from '@/lib/link';
+import { tagLabel } from '@/lib/tags';
+
+interface Props {
+  tags: readonly string[];
+}
+
+const { tags } = Astro.props;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="tag-list" aria-label="Tags">
+      {tags.map((tag) => (
+        <li>
+          <a class="font-mono" href={link(`/blog/tags/${tag}/`)}>
+            {tagLabel(tag)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

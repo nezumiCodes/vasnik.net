@@ -1,0 +1,26 @@
+---
+import TagList from '@/components/TagList.astro';
+import { formatDate, isoDate } from '@/lib/dates';
+import { link } from '@/lib/link';
+import type { Post } from '@/lib/posts';
+
+interface Props {
+  post: Post;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { post, headingLevel: Heading = 'h2' } = Astro.props;
+const { title, description, pubDate, tags, draft } = post.data;
+---
+
+<article class="post-card">
+  <Heading class="post-card-title">
+    <a href={link(`/blog/${post.id}/`)}>{title}</a>
+  </Heading>
+  <p class="post-card-meta font-mono">
+    <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+    {draft && <span class="draft-badge"> · Draft</span>}
+  </p>
+  <p>{description}</p>
+  <TagList tags={tags} />
+</article>

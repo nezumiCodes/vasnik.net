@@ -1,0 +1,41 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Professional Summary
+ * Copied word for word. Mark numbers with backticks to render them in mono.
+ * variant "lead" shows only the first sentence (home page intro).
+ */
+import Proof from '@/components/Proof.astro';
+
+interface Props {
+  variant?: 'full' | 'lead';
+}
+
+const { variant = 'full' } = Astro.props;
+
+const sentences = [
+  'Data and automation specialist with `4+` years’ experience turning sensitive data into automated reporting, dashboards and decision tools.',
+  'Builds end-to-end low-code and scripted solutions using SQL, Python, Power BI, Power Automate, Power Apps and Google Cloud Platform.',
+  'Known for pragmatic problem-solving with the tools at hand, from in-house Power Apps that fill gaps in vendor systems to automated pipelines that cut manual reporting by `60%`.',
+  'Full UK right to work.',
+];
+---
+
+{
+  variant === 'lead' ? (
+    <p class="lead">
+      <Proof text={sentences[0]} />
+    </p>
+  ) : (
+    <section class="cv-section" aria-labelledby="cv-summary">
+      <h2 id="cv-summary">Summary</h2>
+      <p>
+        {sentences.map((sentence, index) => (
+          <>
+            {index > 0 && ' '}
+            <Proof text={sentence} />
+          </>
+        ))}
+      </p>
+    </section>
+  )
+}

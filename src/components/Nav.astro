@@ -1,0 +1,50 @@
+---
+import { isCurrent, link } from '@/lib/link';
+
+const links = [
+  { href: '/experience/', label: 'Experience' },
+  { href: '/services/', label: 'Services' },
+  { href: '/blog/', label: 'Blog' },
+];
+const contactHref = '/contact/';
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <nav class="site-nav" aria-label="Main">
+    <a class="wordmark" href={link('/')} aria-current={path === link('/') ? 'page' : undefined}>
+      Vasiliki <em>(Celia)</em> Nikolaidi
+    </a>
+
+    <ul class="nav-links">
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a href={link(href)} aria-current={isCurrent(href, path) ? 'page' : undefined}>
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a class="nav-cta" href={link(contactHref)} aria-current={isCurrent(contactHref, path) ? 'page' : undefined}>
+      Get in touch
+    </a>
+
+    <details class="nav-menu">
+      <summary>Menu</summary>
+      <ul>
+        {
+          [...links, { href: contactHref, label: 'Get in touch' }].map(({ href, label }) => (
+            <li>
+              <a href={link(href)} aria-current={isCurrent(href, path) ? 'page' : undefined}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </nav>
+</header>

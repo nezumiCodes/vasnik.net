@@ -1,0 +1,47 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Education
+ * Copied word for word. `start` / `end` are YYYY-MM for <time datetime>.
+ */
+import { formatMonth } from '@/lib/dates';
+
+const degrees = [
+  {
+    degree: 'MSc Data Science & Artificial Intelligence',
+    result: 'Distinction',
+    institution: 'University of Liverpool',
+    location: 'Liverpool, UK',
+    start: '2023-09',
+    end: '2024-09',
+  },
+  {
+    degree: 'Integrated Master’s in Electrical & Computer Engineering',
+    result: '2:1',
+    institution: 'University of Patras',
+    location: 'Patras, Greece',
+    start: '2016-10',
+    end: '2021-11',
+  },
+];
+---
+
+<section class="cv-section" aria-labelledby="cv-education">
+  <h2 id="cv-education">Education</h2>
+  <ul class="education-list">
+    {
+      degrees.map((item) => (
+        <li>
+          <h3>
+            {item.degree} <span class="education-result font-mono">{item.result}</span>
+          </h3>
+          <p>
+            {item.institution} · {item.location}
+          </p>
+          <p class="font-mono">
+            <time datetime={item.start}>{formatMonth(item.start)}</time> – <time datetime={item.end}>{formatMonth(item.end)}</time>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

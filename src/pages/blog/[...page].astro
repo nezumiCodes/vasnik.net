@@ -1,0 +1,64 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BlogEmpty from '@/components/BlogEmpty.astro';
+import PostCard from '@/components/PostCard.astro';
+import { BLOG } from '@/config';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { link } from '@/lib/link';
+import { getPublishedPosts, type Post } from '@/lib/posts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPublishedPosts();
+  return paginate(posts, { pageSize: BLOG.postsPerPage });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<Post>;
+}
+
+const { page } = Astro.props;
+const pageHref = (n: number) => link(n === 1 ? '/blog/' : `/blog/${n}/`);
+const title = page.currentPage === 1 ? 'Blog' : `Blog: page ${page.currentPage}`;
+---
+
+<BaseLayout
+  title={title}
+  description="Writing on reporting automation, dashboards, low-code apps and data quality, with the numbers behind each result."
+>
+  <header class="page-header">
+    <h1>Blog</h1>
+    <p><a href={link('/blog/tags/')}>Browse by tag</a></p>
+  </header>
+
+  {
+    page.data.length > 0 ? (
+      <div class="post-list">
+        {page.data.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    ) : (
+      <BlogEmpty />
+    )
+  }
+
+  {
+    page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Blog pages">
+        {page.currentPage > 1 && (
+          <a href={pageHref(page.currentPage - 1)} rel="prev">
+            Newer posts
+          </a>
+        )}
+        <span class="font-mono">
+          Page {page.currentPage} of {page.lastPage}
+        </span>
+        {page.currentPage < page.lastPage && (
+          <a href={pageHref(page.currentPage + 1)} rel="next">
+            Older posts
+          </a>
+        )}
+      </nav>
+    )
+  }
+</BaseLayout>

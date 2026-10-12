@@ -1,0 +1,67 @@
+---
+import { render } from 'astro:content';
+import ToolList from '@/components/ToolList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { link } from '@/lib/link';
+import { ENGAGEMENT_LABELS, getServices } from '@/lib/services';
+
+const services = await getServices();
+const rendered = await Promise.all(services.map(async (service) => ({ service, ...(await render(service)) })));
+---
+
+<BaseLayout
+  title="Services"
+  description="Reporting automation, dashboards, low-code apps and data audits for teams that need their data working without manual effort."
+>
+  <header class="page-header">
+    <h1>Services</h1>
+    <p class="lead">
+      Fixed-scope projects and day-rate support for teams that need their reporting, dashboards and internal tools to run
+      without manual effort.
+    </p>
+    <nav aria-label="Services on this page">
+      <ul class="service-index">
+        {
+          services.map((service) => (
+            <li>
+              <a href={`#${service.id}`}>{service.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </header>
+
+  {
+    rendered.map(({ service, Content }) => (
+      <section class="service" id={service.id} aria-labelledby={`${service.id}-heading`}>
+        <h2 id={`${service.id}-heading`}>{service.data.title}</h2>
+        <p class="lead">{service.data.summary}</p>
+        <p class="service-engagement font-mono">
+          {ENGAGEMENT_LABELS[service.data.engagement]}
+          {service.data.startingFrom && <> · {service.data.startingFrom}</>}
+        </p>
+
+        <h3>Outcomes</h3>
+        <ul class="service-outcomes">
+          {service.data.outcomes.map((outcome) => (
+            <li>{outcome}</li>
+          ))}
+        </ul>
+
+        <h3>Tools</h3>
+        <ToolList tools={service.data.tools} label={`Tools for ${service.data.title}`} />
+
+        <div class="prose">
+          <Content />
+        </div>
+
+        <p>
+          <a class="button" href={link('/contact/')}>
+            Discuss this<span class="sr-only"> service: {service.data.title}</span>
+          </a>
+        </p>
+      </section>
+    ))
+  }
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import BlogEmpty from '@/components/BlogEmpty.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { link } from '@/lib/link';
+import { getPublishedPosts } from '@/lib/posts';
+import { countTags, tagLabel } from '@/lib/tags';
+
+const tags = countTags(await getPublishedPosts());
+---
+
+<BaseLayout title="Tags" description="Blog posts grouped by topic.">
+  <header class="page-header">
+    <p class="font-mono"><a href={link('/blog/')}>Blog</a></p>
+    <h1>Tags</h1>
+  </header>
+
+  {
+    tags.length > 0 ? (
+      <ul class="tag-index">
+        {tags.map(({ tag, count }) => (
+          <li>
+            <a href={link(`/blog/tags/${tag}/`)}>{tagLabel(tag)}</a>{' '}
+            <span class="font-mono">
+              ({count} {count === 1 ? 'post' : 'posts'})
+            </span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <BlogEmpty />
+    )
+  }
+</BaseLayout>

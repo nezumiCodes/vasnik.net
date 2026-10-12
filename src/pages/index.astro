@@ -1,17 +1,80 @@
 ---
-import '@/styles/global.css';
-import { SITE } from '@/config';
+import BlogEmpty from '@/components/BlogEmpty.astro';
+import FlowGraphic from '@/components/FlowGraphic.astro';
+import Headline from '@/components/Headline.astro';
+import PostCard from '@/components/PostCard.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import ProofMetrics from '@/components/cv/ProofMetrics.astro';
+import Summary from '@/components/cv/Summary.astro';
+import { CONTACT, SITE } from '@/config';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { link } from '@/lib/link';
+import { getPublishedPosts } from '@/lib/posts';
+import { getServices } from '@/lib/services';
+
+const services = await getServices();
+const latestPosts = (await getPublishedPosts()).slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Vasiliki Nikolaidi',
+  alternateName: 'Celia Nikolaidi',
+  url: SITE.url,
+  jobTitle: 'Data and automation specialist',
+  knowsAbout: ['SQL', 'Python', 'Power BI', 'Power Automate', 'Power Apps', 'Google Cloud Platform'],
+  sameAs: [CONTACT.linkedin],
+};
 ---
 
-<!doctype html>
-<html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{SITE.name}</title>
-    <meta name="description" content={SITE.description} />
-  </head>
-  <body>
-    <h1>{SITE.name}</h1>
-  </body>
-</html>
+<BaseLayout jsonLd={jsonLd}>
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-text">
+      <p class="hero-kicker font-mono">Data &amp; Automation</p>
+      <Headline as="h1" id="hero-heading">If the tool doesn't exist yet, <em>I build it.</em></Headline>
+      <Summary variant="lead" />
+      <p class="hero-actions">
+        <a class="button" href={link('/services/')}>See services</a>
+        <a class="button button-ghost" href={link('/contact/')}>Get in touch</a>
+      </p>
+    </div>
+    <FlowGraphic />
+  </section>
+
+  <ProofMetrics />
+
+  <section class="home-services" aria-labelledby="services-heading">
+    <h2 id="services-heading">Services</h2>
+    <p>Manual bottlenecks cleared, reporting automated and internal tools built, scoped around the outcome you need.</p>
+    <div class="service-grid">
+      {services.map((service) => <ServiceCard service={service} />)}
+    </div>
+    <p><a href={link('/services/')}>All services and scope</a></p>
+  </section>
+
+  <section class="home-posts" aria-labelledby="posts-heading">
+    <h2 id="posts-heading">Latest writing</h2>
+    {
+      latestPosts.length > 0 ? (
+        <>
+          <div class="post-grid">
+            {latestPosts.map((post) => (
+              <PostCard post={post} headingLevel="h3" />
+            ))}
+          </div>
+          <p>
+            <a href={link('/blog/')}>All posts</a>
+          </p>
+        </>
+      ) : (
+        <BlogEmpty />
+      )
+    }
+  </section>
+
+  <section class="home-contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Got a manual process that needs clearing?</h2>
+    <p>Tell me what's slowing your team down and I'll tell you what can be automated.</p>
+    <p><a class="button" href={link('/contact/')}>Get in touch</a></p>
+  </section>
+</BaseLayout>

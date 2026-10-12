@@ -1,0 +1,31 @@
+---
+/*
+ * CV SOURCE: context/CV.md § Languages
+ * Copied word for word.
+ */
+
+const languages = [
+  { language: 'Greek', level: 'Native', evidence: null },
+  { language: 'English', level: 'C2', evidence: 'IELTS 8.5/9.0, Michigan ECPE' },
+  { language: 'French', level: 'C2', evidence: 'DALF' },
+  { language: 'German', level: 'B2', evidence: 'Goethe' },
+  { language: 'Russian', level: 'B2', evidence: 'Pushkin' },
+];
+---
+
+<section class="cv-section" aria-labelledby="cv-languages">
+  <h2 id="cv-languages">Languages</h2>
+  <dl class="language-list">
+    {
+      languages.map((item) => (
+        <div>
+          <dt>{item.language}</dt>
+          <dd>
+            <span class="font-mono">{item.level}</span>
+            {item.evidence && <> ({item.evidence})</>}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

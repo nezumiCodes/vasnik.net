@@ -1,0 +1,26 @@
+---
+/**
+ * Brand "flow" graphic: teal lines enter from the left and converge on the
+ * "done" node beside the headline, with one secondary accent node.
+ * Colours come from theme tokens in global.css (light: raspberry done node,
+ * plum accent; dark: butter done node, raspberry accent), never from here.
+ */
+---
+
+<svg class="flow-graphic" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+  <g class="flow-lines" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path class="flow-line" pathLength="1" d="M0 60C160 60 260 190 480 200" />
+    <path class="flow-line" pathLength="1" d="M0 140C150 140 300 200 480 200" />
+    <path class="flow-line" pathLength="1" d="M0 250C170 250 300 205 480 200" />
+    <path class="flow-line" pathLength="1" d="M0 340C180 340 280 215 480 200" />
+    <path class="flow-line flow-line-out" pathLength="1" d="M506 200H600" />
+  </g>
+  <g class="flow-nodes" stroke="currentColor" stroke-width="2">
+    <circle class="flow-node" cx="217.5" cy="126.3" r="6" fill="none" />
+    <circle class="flow-node" cx="113" cy="149.4" r="6" fill="none" />
+    <circle class="flow-node" cx="236.3" cy="226.9" r="6" fill="none" />
+    <circle class="flow-node-alt" cx="232.5" cy="275.6" r="8" />
+  </g>
+  <circle class="flow-done-ring" cx="480" cy="200" r="24" fill="none" stroke="currentColor" stroke-width="2" />
+  <circle class="flow-done" cx="480" cy="200" r="14" />
+</svg>

@@ -1,0 +1,15 @@
+---
+import { CONTACT, SITE } from '@/config';
+import { link } from '@/lib/link';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <ul class="footer-links">
+    <li><a href={CONTACT.linkedin} rel="me noopener">LinkedIn</a></li>
+    <li><a href={`${link('/')}rss.xml`}>RSS</a></li>
+    <li><a href={link('/contact/')}>Contact</a></li>
+  </ul>
+  <p class="font-mono">© {year} {SITE.name}</p>
+</footer>

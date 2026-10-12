@@ -1,0 +1,12 @@
+---
+interface Props {
+  tools: readonly string[];
+  label?: string;
+}
+
+const { tools, label = 'Tools' } = Astro.props;
+---
+
+<ul class="tool-list" aria-label={label}>
+  {tools.map((tool) => <li class="font-mono">{tool}</li>)}
+</ul>

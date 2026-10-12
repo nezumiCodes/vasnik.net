@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ToolList from '@/components/ToolList.astro';
+import { link } from '@/lib/link';
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+
+const { service } = Astro.props;
+const { title, summary, tools } = service.data;
+---
+
+<article class="service-card">
+  <h3>{title}</h3>
+  <p>{summary}</p>
+  <ToolList tools={tools.slice(0, 4)} label={`Tools for ${title}`} />
+  <a href={link(`/services/#${service.id}`)}>
+    See the scope<span class="sr-only"> of {title}</span>
+  </a>
+</article>
