@@ -28,6 +28,8 @@ interface Props {
   noindex?: boolean;
   /** Structured data (schema.org) for this page. */
   jsonLd?: Record<string, unknown>;
+  /** Absolute URL of the original when this page republishes content from elsewhere. */
+  canonicalUrl?: string;
 }
 
 const {
@@ -38,10 +40,11 @@ const {
   modifiedTime,
   noindex = false,
   jsonLd,
+  canonicalUrl,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
 const ogImage = new URL(`${link('/')}og-default.png`, Astro.site ?? SITE.url).href;
 const ogImageAlt = `If the tool doesn’t exist yet, I build it. ${SITE.name}, data and automation.`;
 ---

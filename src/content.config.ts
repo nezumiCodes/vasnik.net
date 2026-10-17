@@ -19,6 +19,19 @@ const blog = defineCollection({
         draft: z.boolean().default(false),
         heroImage: image().optional(),
         heroAlt: z.string().min(1).optional(),
+        /**
+         * The same article on Medium. `original: true` means Medium had it
+         * first, so this page's canonical link points there; otherwise this
+         * site is the original and Medium is the copy (use Medium's "Import
+         * a story" so Medium's canonical points here).
+         */
+        medium: z
+          .object({
+            url: z.url({ protocol: /^https$/ }),
+            publication: z.string().min(1).optional(),
+            original: z.boolean().default(false),
+          })
+          .optional(),
       })
       .refine((post) => !post.heroImage || post.heroAlt, {
         message: 'heroAlt is required when heroImage is set',

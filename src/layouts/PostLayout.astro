@@ -16,10 +16,18 @@ interface Props {
 }
 
 const { post, newer, older } = Astro.props;
-const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = post.data;
+const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt, medium } = post.data;
+const mediumWhere = medium?.publication ? `in ${medium.publication} on Medium` : 'on Medium';
 ---
 
-<BaseLayout title={title} description={description} type="article" publishedTime={pubDate} modifiedTime={updatedDate}>
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  canonicalUrl={medium?.original ? medium.url : undefined}
+>
   <article class="page-wrap max-w-[48rem] py-14">
     <header>
       <p class="label"><a class="text-label" href={link('/blog/')}>Blog</a></p>
@@ -37,6 +45,16 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = p
         {' '}· {formatReadingTime(post.body ?? '')}
       </p>
       <TagList tags={tags} />
+      {
+        medium && (
+          <p class="mt-6 border-l-2 border-flow pl-4 text-sm text-muted">
+            {medium.original ? 'Originally published' : 'Also published'} {mediumWhere}:{' '}
+            <a href={medium.url} rel="noopener">
+              read it on Medium
+            </a>
+          </p>
+        )
+      }
     </header>
 
     {heroImage && heroAlt && <Image class="mt-10 w-full rounded-md" src={heroImage} alt={heroAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" />}

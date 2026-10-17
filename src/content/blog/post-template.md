@@ -21,6 +21,22 @@ Copy this file to start a new post, rename it to the post's URL slug (for exampl
 | `draft` | No | `true` hides the post from the live site |
 | `heroImage` | No | Relative path to an image beside the post |
 | `heroAlt` | With `heroImage` | Describes the image |
+| `medium` | No | The same article on Medium; see below |
+
+## Posts that are also on Medium
+
+Add a `medium` block to the frontmatter. The post page then shows a note linking to the Medium version.
+
+```yaml
+medium:
+  url: https://medium.com/<publication>/<story-slug>
+  publication: Open AI # optional: the Medium publication's name
+  original: true # true if Medium had it first
+```
+
+- **Medium first** (`original: true`): the note reads "Originally published in Open AI on Medium", and this page's canonical link points to Medium, so search engines credit the original.
+- **This site first** (`original: false`, the default): the note reads "Also published in Open AI on Medium", and the canonical link stays on this site. On Medium, use **Import a story** with this post's URL so Medium's own canonical link points here.
+- Set `pubDate` to the date the article was first published, wherever that was.
 
 ## Markdown elements
 
