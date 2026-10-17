@@ -1,0 +1,24 @@
+---
+/**
+ * The previous website on vasnik.net installed a service worker that keeps
+ * serving its cached pages (for example /index.html) to returning visitors.
+ * This site registers no service worker and uses no Cache Storage, so any
+ * registration or cache found here is a leftover: remove it. Runs after the
+ * page has loaded and never blocks rendering.
+ */
+---
+
+<script is:inline>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((registrations) => registrations.forEach((registration) => registration.unregister()))
+      .catch(() => {});
+  }
+  if ('caches' in window) {
+    caches
+      .keys()
+      .then((keys) => keys.forEach((key) => caches.delete(key)))
+      .catch(() => {});
+  }
+</script>

@@ -12,6 +12,7 @@ import serifFont from '@fontsource/instrument-serif/files/instrument-serif-latin
 import sansFont from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
 import '@/styles/global.css';
 import Footer from '@/components/Footer.astro';
+import LegacyCleanup from '@/components/LegacyCleanup.astro';
 import Nav from '@/components/Nav.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
 import { SITE } from '@/config';
@@ -89,5 +90,6 @@ const ogImageAlt = `If the tool doesn’t exist yet, I build it. ${SITE.name}, d
       <slot />
     </main>
     <Footer />
+    <LegacyCleanup />
   </body>
 </html>
