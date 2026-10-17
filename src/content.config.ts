@@ -19,6 +19,15 @@ const blog = defineCollection({
         draft: z.boolean().default(false),
         heroImage: image().optional(),
         heroAlt: z.string().min(1).optional(),
+        /** Photo credit shown under the hero image, e.g. "Photo by X on Unsplash". */
+        heroCredit: z
+          .object({
+            author: z.string().min(1),
+            authorUrl: z.url({ protocol: /^https$/ }),
+            source: z.string().min(1),
+            sourceUrl: z.url({ protocol: /^https$/ }),
+          })
+          .optional(),
         /**
          * The same article on Medium. `original: true` means Medium had it
          * first, so this page's canonical link points there; otherwise this

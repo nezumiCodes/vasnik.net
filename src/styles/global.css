@@ -35,6 +35,7 @@
   --c-cta: #d23b6e;
   --c-cta-hover: #b42a5b;
   --c-cta-fg: #ffffff;
+  --c-figure-bg: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -62,6 +63,7 @@
     --c-cta: #d23b6e;
     --c-cta-hover: #b42a5b;
     --c-cta-fg: #ffffff;
+    --c-figure-bg: #ffffff;
   }
 }
 
@@ -89,6 +91,7 @@
   --c-cta: #d23b6e;
   --c-cta-hover: #b42a5b;
   --c-cta-fg: #ffffff;
+  --c-figure-bg: #ffffff;
 }
 
 /* Remove Tailwind's default palette: only the role tokens below exist. */
@@ -711,6 +714,66 @@ html {
 
   & :where(pre) :where(.token.operator, .token.punctuation, .token.entity) {
     color: var(--c-muted);
+  }
+
+  /* Diagrams with transparent backgrounds and dark lines: keep a light panel in both themes. */
+  & :where(figure.figure-diagram img) {
+    margin-inline: auto;
+    padding: 0.75rem;
+    border-radius: 6px;
+    background-color: var(--c-figure-bg);
+  }
+
+  & :where(figcaption) {
+    text-align: center;
+  }
+
+  /*
+   * Native MathML formulas (no script, CSP-safe). They shrink with the column
+   * on narrow screens (the widest formula is about 28.5em), down to 11px; only
+   * below that do they scroll sideways. Vertical padding holds the limits and
+   * exponents that MathML draws outside the formula's box, so no vertical
+   * scrollbar appears.
+   */
+  & :where(.math-block) {
+    container-type: inline-size;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-block: 1em;
+    padding-block: 0.5em;
+  }
+
+  & :where(.math-block math) {
+    min-width: max-content;
+    font-size: max(11px, min(1.125rem, 100cqi / 28.5));
+  }
+
+  & :where(figure.figure-table) {
+    overflow-x: auto;
+  }
+
+  & :where(figure.figure-table table) {
+    margin-block: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  & :where(figure.figure-table table + table) {
+    margin-top: 2em;
+  }
+
+  & :where(figure.figure-table caption) {
+    margin-bottom: 0.5em;
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    color: var(--c-label);
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  & :where(figure.figure-table th[scope='row']) {
+    font-weight: 600;
+    color: var(--c-heading);
   }
 }
 

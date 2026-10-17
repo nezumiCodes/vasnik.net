@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { post, newer, older } = Astro.props;
-const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt, medium } = post.data;
+const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt, heroCredit, medium } = post.data;
 const mediumWhere = medium?.publication ? `in ${medium.publication} on Medium` : 'on Medium';
 ---
 
@@ -57,7 +57,33 @@ const mediumWhere = medium?.publication ? `in ${medium.publication} on Medium` :
       }
     </header>
 
-    {heroImage && heroAlt && <Image class="mt-10 w-full rounded-md" src={heroImage} alt={heroAlt} widths={[640, 960, 1280]} sizes="(min-width: 768px) 768px, 100vw" />}
+    {
+      heroImage && heroAlt && (
+        <figure class="mt-10">
+          <Image
+            class="w-full rounded-md"
+            src={heroImage}
+            alt={heroAlt}
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 768px) 768px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+          />
+          {heroCredit && (
+            <figcaption class="mt-2 text-sm text-muted">
+              Photo by{' '}
+              <a href={heroCredit.authorUrl} rel="noopener">
+                {heroCredit.author}
+              </a>{' '}
+              on{' '}
+              <a href={heroCredit.sourceUrl} rel="noopener">
+                {heroCredit.source}
+              </a>
+            </figcaption>
+          )}
+        </figure>
+      )
+    }
 
     <div class="prose mt-10">
       <slot />

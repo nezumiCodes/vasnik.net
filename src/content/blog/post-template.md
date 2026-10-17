@@ -21,6 +21,7 @@ Copy this file to start a new post, rename it to the post's URL slug (for exampl
 | `draft` | No | `true` hides the post from the live site |
 | `heroImage` | No | Relative path to an image beside the post |
 | `heroAlt` | With `heroImage` | Describes the image |
+| `heroCredit` | No | `author`, `authorUrl`, `source`, `sourceUrl`: renders "Photo by … on …" under the hero |
 | `medium` | No | The same article on Medium; see below |
 
 ## Posts that are also on Medium
@@ -37,6 +38,15 @@ medium:
 - **Medium first** (`original: true`): the note reads "Originally published in Open AI on Medium", and this page's canonical link points to Medium, so search engines credit the original.
 - **This site first** (`original: false`, the default): the note reads "Also published in Open AI on Medium", and the canonical link stays on this site. On Medium, use **Import a story** with this post's URL so Medium's own canonical link points here.
 - Set `pubDate` to the date the article was first published, wherever that was.
+
+## Figures, tables and formulas
+
+These patterns are written as HTML inside the Markdown. Keep each block free of blank lines.
+
+- **Diagram with a caption:** put the image in `public/blog/<slug>/` and use `<figure class="figure-diagram">` with an `<img>` (`width`, `height`, `alt`, `loading="lazy"`) and a `<figcaption>`. The image sits on a white panel, so dark lines stay visible in dark mode.
+- **Data table with a caption:** `<figure class="figure-table">` containing one or more `<table>`s. Give each table a `<caption>`, mark row headers with `<th scope="row">`, and add a `<figcaption>`. Wide tables scroll sideways on phones.
+- **Formula:** wrap MathML in `<div class="math-block">`, with `<math display="block" alttext="…">` written out in words. Browsers render MathML natively, with no scripts, so it works under the CSP and follows the theme. Don't use formula images: they are unreadable in dark mode.
+- **Never** embed third-party scripts (GitHub Gists, CodePen, tweets): the CSP blocks them. Copy the content into the post instead.
 
 ## Markdown elements
 
