@@ -3,12 +3,13 @@
  * The previous website on vasnik.net installed a service worker that keeps
  * serving its cached pages (for example /index.html) to returning visitors.
  * This site registers no service worker and uses no Cache Storage, so any
- * registration or cache found here is a leftover: remove it. Runs after the
- * page has loaded and never blocks rendering.
+ * registration or cache found here is a leftover: remove it. Bundled (not
+ * inline) so Astro covers it in the Content Security Policy; it runs after
+ * parsing and never blocks rendering.
  */
 ---
 
-<script is:inline>
+<script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .getRegistrations()

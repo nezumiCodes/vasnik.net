@@ -686,6 +686,32 @@ html {
   & :where(a):hover {
     text-decoration-thickness: 2px;
   }
+
+  /*
+   * Prism syntax highlighting (class-based, so it works under the CSP).
+   * Role tokens only: all pairs meet AA on the card background in both themes.
+   */
+  & :where(pre) :where(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+    color: var(--c-muted);
+    font-style: italic;
+  }
+
+  & :where(pre) :where(.token.keyword, .token.atrule, .token.important, .token.boolean, .token.builtin) {
+    color: var(--c-label);
+  }
+
+  & :where(pre) :where(.token.string, .token.char, .token.attr-value, .token.regex, .token.url) {
+    color: var(--c-highlight);
+  }
+
+  & :where(pre) :where(.token.function, .token.class-name, .token.number, .token.constant, .token.tag, .token.selector) {
+    color: var(--c-heading);
+    font-weight: 500;
+  }
+
+  & :where(pre) :where(.token.operator, .token.punctuation, .token.entity) {
+    color: var(--c-muted);
+  }
 }
 
 @media print {

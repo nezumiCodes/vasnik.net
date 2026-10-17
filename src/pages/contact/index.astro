@@ -19,7 +19,7 @@ const formAction = CONTACT.formspreeFormId ? `https://formspree.io/f/${CONTACT.f
       formAction ? (
         <form class="mt-10 grid gap-5" action={formAction} method="POST">
           <input type="hidden" name="_subject" value="New enquiry from vasnik.net" />
-          <div style="display:none" aria-hidden="true">
+          <div class="hidden" aria-hidden="true">
             <label for="contact-gotcha">Leave this field empty</label>
             <input id="contact-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
