@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { formatDate, isoDate } from '@/lib/dates';
 import { link } from '@/lib/link';
 import type { Post } from '@/lib/posts';
+import { formatReadingTime } from '@/lib/reading-time';
 
 interface Props {
   post: Post;
@@ -33,6 +34,7 @@ const { title, description, pubDate, updatedDate, tags, heroImage, heroAlt } = p
             </>
           )
         }
+        {' '}· {formatReadingTime(post.body ?? '')}
       </p>
       <TagList tags={tags} />
     </header>

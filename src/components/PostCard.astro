@@ -3,6 +3,7 @@ import TagList from '@/components/TagList.astro';
 import { formatDate, isoDate } from '@/lib/dates';
 import { link } from '@/lib/link';
 import type { Post } from '@/lib/posts';
+import { formatReadingTime } from '@/lib/reading-time';
 
 interface Props {
   post: Post;
@@ -16,6 +17,7 @@ const { title, description, pubDate, tags, draft } = post.data;
 <article class="card">
   <p class="label">
     <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+    <span> · {formatReadingTime(post.body ?? '')}</span>
     {draft && <span> · Draft</span>}
   </p>
   <Heading class="card-title text-[1.625rem]">

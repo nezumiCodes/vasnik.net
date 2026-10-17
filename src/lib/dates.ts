@@ -15,9 +15,12 @@ export function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+// Fixed three-letter months, as written in the CV. Intl's en-GB short month
+// is "Sept" in current ICU data, which would no longer match the CV.
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 /** "2024-10" -> "Oct 2024" */
 export function formatMonth(yyyyMm: string): string {
-  return monthYear.format(new Date(`${yyyyMm}-01T00:00:00Z`));
+  const [year, month] = yyyyMm.split('-').map(Number);
+  return `${MONTHS[month - 1]} ${year}`;
 }

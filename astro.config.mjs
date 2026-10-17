@@ -10,6 +10,8 @@ export default defineConfig({
   trailingSlash: 'always',
   build: {
     format: 'directory',
+    // The whole stylesheet is small, so inlining it removes a render-blocking request.
+    inlineStylesheets: 'always',
   },
   integrations: [
     sitemap({

@@ -1,0 +1,23 @@
+---
+/**
+ * Render-blocking theme resolver. Must sit in <head> before the stylesheets so
+ * the first paint already uses the right theme (no light flash in dark mode).
+ * A saved choice wins; otherwise the device setting decides. Without
+ * JavaScript, data-theme is never set and the CSS follows prefers-color-scheme.
+ */
+---
+
+<script is:inline>
+  (() => {
+    let saved = null;
+    try {
+      saved = localStorage.getItem('theme');
+    } catch {}
+    document.documentElement.dataset.theme =
+      saved === 'light' || saved === 'dark'
+        ? saved
+        : matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+  })();
+</script>

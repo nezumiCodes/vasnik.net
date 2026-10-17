@@ -584,6 +584,47 @@
   }
 }
 
+/* Theme switch in the nav. Hidden until the head script has set data-theme. */
+.theme-toggle {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--c-nav-fg);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--c-nav-fg);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--c-nav-highlight);
+  }
+
+  /* Match the 40px "Get in touch" button beside it on desktop. */
+  @media (width >= 48rem) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+:root:not([data-theme]) .theme-toggle {
+  display: none;
+}
+
+/* Colour cross-fade, active only for the 250 ms after a theme switch. */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition-property: background-color, border-color, color, fill, stroke, outline-color, text-decoration-color !important;
+    transition-duration: 250ms !important;
+    transition-timing-function: ease !important;
+  }
+}
+
 /* Blog and service prose: typography plugin recoloured to role tokens. */
 .prose {
   --tw-prose-body: var(--c-fg);
