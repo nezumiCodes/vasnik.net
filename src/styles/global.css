@@ -260,6 +260,11 @@
   }
 }
 
+/* In-page links land below the pinned header (4rem + 1px border). */
+html {
+  scroll-padding-top: 4.5rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

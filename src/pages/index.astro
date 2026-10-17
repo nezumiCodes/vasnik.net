@@ -29,21 +29,18 @@ const jsonLd = {
 
 <BaseLayout jsonLd={jsonLd}>
   <section class="hero" aria-labelledby="hero-heading">
-    <div class="page-wrap grid items-center gap-x-10 gap-y-6 py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:py-24">
+    <div class="page-wrap grid items-center gap-x-10 gap-y-6 py-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:py-12">
       <div>
         <p class="label">Data &amp; Automation</p>
         <Headline as="h1" id="hero-heading">If the tool doesn’t exist yet, <em>I build it.</em></Headline>
         <Summary variant="lead" />
-        <p class="mt-8 flex flex-wrap gap-3">
-          {
-            FEATURES.services ? (
+        {
+          FEATURES.services && (
+            <p class="mt-8">
               <a class="button" href={link('/services/')}>See services</a>
-            ) : (
-              <a class="button" href={link('/experience/')}>See experience</a>
-            )
-          }
-          <a class="button button-ghost" href={link('/contact/')}>Get in touch</a>
-        </p>
+            </p>
+          )
+        }
       </div>
       <FlowGraphic class="mx-auto w-full max-w-[32rem] lg:max-w-none" />
     </div>
@@ -53,7 +50,7 @@ const jsonLd = {
 
   {
     FEATURES.services && (
-      <section class="page-wrap py-16" aria-labelledby="services-heading">
+      <section class="page-wrap py-16 lg:py-10" aria-labelledby="services-heading">
         <h2 id="services-heading">Services</h2>
         <p class="lead mt-4">
           Manual bottlenecks cleared, reporting automated and internal tools built, scoped around the outcome you need.
@@ -70,27 +67,31 @@ const jsonLd = {
     )
   }
 
-  <section class="page-wrap py-16" aria-labelledby="posts-heading">
-    <h2 id="posts-heading" class="mb-8">Latest writing</h2>
+  <section class="page-wrap py-16 lg:py-10" aria-labelledby="posts-heading">
+    <div class="mb-8 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+      <h2 id="posts-heading">Latest writing</h2>
+      {
+        latestPosts.length > 0 && (
+          <a class="font-mono text-sm" href={link('/blog/')}>
+            All posts
+          </a>
+        )
+      }
+    </div>
     {
       latestPosts.length > 0 ? (
-        <>
-          <div class="grid gap-6 md:grid-cols-3">
-            {latestPosts.map((post) => (
-              <PostCard post={post} headingLevel="h3" />
-            ))}
-          </div>
-          <p class="mt-8">
-            <a href={link('/blog/')}>All posts</a>
-          </p>
-        </>
+        <div class="grid gap-6 md:grid-cols-3">
+          {latestPosts.map((post) => (
+            <PostCard post={post} headingLevel="h3" />
+          ))}
+        </div>
       ) : (
         <BlogEmpty />
       )
     }
   </section>
 
-  <section class="page-wrap pt-16" aria-labelledby="contact-heading">
+  <section class="page-wrap pt-16 lg:pt-10" aria-labelledby="contact-heading">
     <div class="on-plum rounded-md px-6 py-12 sm:px-12">
       <h2 id="contact-heading">Got a manual process that needs <em>clearing?</em></h2>
       <p class="lead mt-4">Tell me what’s slowing your team down and I’ll tell you what can be automated.</p>
