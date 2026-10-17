@@ -1,9 +1,16 @@
 ---
 import { render } from 'astro:content';
 import ToolList from '@/components/ToolList.astro';
+import { FEATURES } from '@/config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { link } from '@/lib/link';
 import { ENGAGEMENT_LABELS, getServices } from '@/lib/services';
+
+// A rest route with an undefined param renders /services/. Returning no paths
+// skips the page entirely while the services switch is off.
+export function getStaticPaths() {
+  return FEATURES.services ? [{ params: { path: undefined } }] : [];
+}
 
 const services = await getServices();
 const rendered = await Promise.all(services.map(async (service) => ({ service, ...(await render(service)) })));

@@ -6,13 +6,13 @@ import PostCard from '@/components/PostCard.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import ProofMetrics from '@/components/cv/ProofMetrics.astro';
 import Summary from '@/components/cv/Summary.astro';
-import { CONTACT, SITE } from '@/config';
+import { CONTACT, FEATURES, SITE } from '@/config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { link } from '@/lib/link';
 import { getPublishedPosts } from '@/lib/posts';
 import { getServices } from '@/lib/services';
 
-const services = await getServices();
+const services = FEATURES.services ? await getServices() : [];
 const latestPosts = (await getPublishedPosts()).slice(0, 3);
 
 const jsonLd = {
@@ -35,7 +35,13 @@ const jsonLd = {
         <Headline as="h1" id="hero-heading">If the tool doesn't exist yet, <em>I build it.</em></Headline>
         <Summary variant="lead" />
         <p class="mt-8 flex flex-wrap gap-3">
-          <a class="button" href={link('/services/')}>See services</a>
+          {
+            FEATURES.services ? (
+              <a class="button" href={link('/services/')}>See services</a>
+            ) : (
+              <a class="button" href={link('/experience/')}>See experience</a>
+            )
+          }
           <a class="button button-ghost" href={link('/contact/')}>Get in touch</a>
         </p>
       </div>
@@ -45,16 +51,24 @@ const jsonLd = {
 
   <ProofMetrics />
 
-  <section class="page-wrap py-16" aria-labelledby="services-heading">
-    <h2 id="services-heading">Services</h2>
-    <p class="lead mt-4">
-      Manual bottlenecks cleared, reporting automated and internal tools built, scoped around the outcome you need.
-    </p>
-    <div class="mt-8 grid gap-6 md:grid-cols-2">
-      {services.map((service) => <ServiceCard service={service} />)}
-    </div>
-    <p class="mt-8"><a href={link('/services/')}>All services and scope</a></p>
-  </section>
+  {
+    FEATURES.services && (
+      <section class="page-wrap py-16" aria-labelledby="services-heading">
+        <h2 id="services-heading">Services</h2>
+        <p class="lead mt-4">
+          Manual bottlenecks cleared, reporting automated and internal tools built, scoped around the outcome you need.
+        </p>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          {services.map((service) => (
+            <ServiceCard service={service} />
+          ))}
+        </div>
+        <p class="mt-8">
+          <a href={link('/services/')}>All services and scope</a>
+        </p>
+      </section>
+    )
+  }
 
   <section class="page-wrap py-16" aria-labelledby="posts-heading">
     <h2 id="posts-heading" class="mb-8">Latest writing</h2>

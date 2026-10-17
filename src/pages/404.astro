@@ -1,4 +1,5 @@
 ---
+import { FEATURES } from '@/config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { link } from '@/lib/link';
 ---
@@ -12,7 +13,7 @@ import { link } from '@/lib/link';
     </header>
     <ul class="node-list mt-8">
       <li><a href={link('/')}>Home</a></li>
-      <li><a href={link('/services/')}>Services</a></li>
+      {FEATURES.services && <li><a href={link('/services/')}>Services</a></li>}
       <li><a href={link('/experience/')}>Experience</a></li>
       <li><a href={link('/blog/')}>Blog</a></li>
     </ul>

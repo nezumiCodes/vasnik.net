@@ -1,11 +1,10 @@
 ---
-import { CONTACT } from '@/config';
+import { CONTACT, FEATURES } from '@/config';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getServices } from '@/lib/services';
 
-const services = await getServices();
+const services = FEATURES.services ? await getServices() : [];
 const formAction = CONTACT.formspreeFormId ? `https://formspree.io/f/${CONTACT.formspreeFormId}` : null;
-const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
 ---
 
 <BaseLayout title="Contact" description="Get in touch about reporting automation, dashboards, low-code apps or data audits.">
@@ -20,7 +19,6 @@ const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
       formAction ? (
         <form class="mt-10 grid gap-5" action={formAction} method="POST">
           <input type="hidden" name="_subject" value="New enquiry from vasnik.net" />
-          <input type="hidden" name="_next" value={thanksUrl} />
           <div style="display:none" aria-hidden="true">
             <label for="contact-gotcha">Leave this field empty</label>
             <input id="contact-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
@@ -40,15 +38,17 @@ const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
             </label>
             <input id="contact-organisation" name="organisation" type="text" autocomplete="organization" />
           </p>
-          <p class="field">
-            <label for="contact-service">What can I help with?</label>
-            <select id="contact-service" name="service">
-              {services.map((service) => (
-                <option value={service.data.title}>{service.data.title}</option>
-              ))}
-              <option value="Something else">Something else</option>
-            </select>
-          </p>
+          {services.length > 0 && (
+            <p class="field">
+              <label for="contact-service">What can I help with?</label>
+              <select id="contact-service" name="service">
+                {services.map((service) => (
+                  <option value={service.data.title}>{service.data.title}</option>
+                ))}
+                <option value="Something else">Something else</option>
+              </select>
+            </p>
+          )}
           <p class="field">
             <label for="contact-message">Message</label>
             <textarea id="contact-message" name="message" rows="6" required />

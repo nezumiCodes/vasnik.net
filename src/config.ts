@@ -13,8 +13,17 @@ export const SITE = {
 
 export const CONTACT = {
   linkedin: 'https://www.linkedin.com/in/vasnik',
-  /** Form ID from formspree.io (the part after /f/). Set before the first deploy. */
-  formspreeFormId: '',
+  /** Form ID from formspree.io (the part after /f/). Empty hides the form. */
+  formspreeFormId: 'mzedoqwq',
+} as const;
+
+/**
+ * Feature switches. With `services: false` the /services/ page is not built and
+ * every link, section and form field that points at services is left out. The
+ * service entries in src/content/services/ are still schema-checked by the build.
+ */
+export const FEATURES = {
+  services: false,
 } as const;
 
 export const BLOG = {

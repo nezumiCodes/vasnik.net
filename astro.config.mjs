@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-const EXCLUDED_FROM_SITEMAP = ['/404/', '/contact/thanks/'];
+const EXCLUDED_FROM_SITEMAP = ['/404/'];
 
 export default defineConfig({
   site: 'https://vasnik.net',
