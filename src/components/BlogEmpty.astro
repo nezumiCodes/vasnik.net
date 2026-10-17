@@ -3,14 +3,14 @@ import { FEATURES } from '@/config';
 import { link } from '@/lib/link';
 
 const meanwhile = FEATURES.services
-  ? { href: '/services/', label: 'services' }
-  : { href: '/experience/', label: 'experience' };
+  ? { lead: 'see my', href: '/services/', label: 'services' }
+  : { lead: 'read more', href: '/about/', label: 'about me' };
 ---
 
 <div class="empty-state">
   <p class="font-serif text-[1.5rem] leading-tight text-heading">First articles coming soon.</p>
   <p>
-    Follow along with the <a href={`${link('/')}rss.xml`}>RSS feed</a>, or see my{' '}
+    Follow along with the <a href={`${link('/')}rss.xml`}>RSS feed</a>, or {meanwhile.lead}{' '}
     <a href={link(meanwhile.href)}>{meanwhile.label}</a> in the meantime.
   </p>
 </div>
