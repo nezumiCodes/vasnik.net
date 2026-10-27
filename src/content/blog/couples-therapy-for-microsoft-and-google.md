@@ -15,7 +15,7 @@ medium:
   original: true
 ---
 
-### Part 1: The story (and everything that fought back)
+### The story (and everything that fought back)
 
 Every Monday, staff in our service open a Google Sheet and work through a list of clients who are due a routine follow-up check. Someone had to build that list by hand each week: pull the data from a report within our CMS, paste it into a new tab, tidy it up and then start sending reminders to all keyworkers within that list.
 
