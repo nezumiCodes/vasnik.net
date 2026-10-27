@@ -23,7 +23,7 @@ There was a second reason to automate, and it took me a while to see it. Working
 
 I always love when I can help people and make their lives even just a tiny bit easier, so during a meeting when we were talking about these follow-up client checks, I offered a solution that could minimise their work and allow them to concentrate only on "edge" cases.
 
-It took a lot longer than "on paper" suggested. This post is the honest version, dead ends included. If you want the code and step-by-step setup, that will be in Part 2.
+It took a lot longer than "on paper" suggested. This post is the honest version, dead ends included.
 
 ---
 
@@ -156,12 +156,6 @@ Underneath all the connectors, tokens and frozen rows, this project was never re
 I've been building these kinds of tools for a while now, and I still got caught out more times than I'd like to admit. That's the honest part I think most tutorials leave out: a lot of the learning happens in the gap between "this should work" and "why doesn't this work?". We typically only see the solution, not how someone arrived there. You try something, it fails, you dig into why, and you try again. Every wrong turn in this project taught me something I won't forget.
 
 That's why I write these up, dead ends included. If one person hits the `__PowerAppsId__` error, or watches half their rows mysteriously slide one column to the right, and finds this post before losing an evening to it, then my ordeals were worth it.
-
----
-
-## Next up
-
-In Part 2, I'll walk through building each piece: the query, the Apps Script tab creator, the custom connector, the Power Automate flow and the Chat reminder, with the final code and a troubleshooting table.
 
 ---
 
