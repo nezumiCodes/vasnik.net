@@ -11,11 +11,12 @@ import '@fontsource/ibm-plex-mono/latin-500.css';
 import serifFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
 import sansFont from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
 import '@/styles/global.css';
+import Analytics from '@/components/Analytics.astro';
 import Footer from '@/components/Footer.astro';
 import LegacyCleanup from '@/components/LegacyCleanup.astro';
 import Nav from '@/components/Nav.astro';
 import ThemeScript from '@/components/ThemeScript.astro';
-import { SITE } from '@/config';
+import { ANALYTICS, SITE } from '@/config';
 import { link } from '@/lib/link';
 
 interface Props {
@@ -94,5 +95,6 @@ const ogImageAlt = `If the tool doesn’t exist yet, I build it. ${SITE.name}, d
     </main>
     <Footer />
     <LegacyCleanup />
+    {ANALYTICS.goatcounterCode && <Analytics />}
   </body>
 </html>

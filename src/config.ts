@@ -18,6 +18,15 @@ export const CONTACT = {
 } as const;
 
 /**
+ * Cookieless page-view counting with GoatCounter (goatcounter.com): no cookies,
+ * no browser storage and no third-party script, so no consent banner is needed.
+ */
+export const ANALYTICS = {
+  /** Site code from goatcounter.com (the MYCODE in MYCODE.goatcounter.com). Empty turns counting off. */
+  goatcounterCode: 'vasnik',
+} as const;
+
+/**
  * Feature switches. With `services: false` the /services/ page is not built and
  * every link, section and form field that points at services is left out. The
  * service entries in src/content/services/ are still schema-checked by the build.

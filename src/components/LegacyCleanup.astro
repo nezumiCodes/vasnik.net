@@ -6,10 +6,21 @@
  * registration or cache found here is a leftover: remove it. Bundled (not
  * inline) so Astro covers it in the Content Security Policy; it runs after
  * parsing and never blocks rendering.
+ *
+ * Old links and bookmarks also point at /index.html. GitHub Pages serves the
+ * same page there, and the canonical link already names the clean URL, so
+ * only the address bar needs tidying: drop the trailing index.html in place.
  */
 ---
 
 <script>
+  if (location.pathname.endsWith('/index.html')) {
+    history.replaceState(
+      history.state,
+      '',
+      location.pathname.slice(0, -'index.html'.length) + location.search + location.hash,
+    );
+  }
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .getRegistrations()

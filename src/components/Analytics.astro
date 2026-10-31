@@ -1,0 +1,53 @@
+---
+/**
+ * Counts one page view per page load with GoatCounter's /count endpoint
+ * (goatcounter.com/help/pixel). A few lines written here instead of loading
+ * gc.zgo.at/count.js, so no third-party script runs on the site. Nothing is
+ * stored in the browser. Rendered by BaseLayout only when
+ * ANALYTICS.goatcounterCode is set; astro.config.mjs then allows the endpoint
+ * in the Content Security Policy.
+ *
+ * Skipped: the dev server, any host other than vasnik.net (local preview),
+ * pages shown inside a frame, and automated browsers. A page opened in a
+ * background tab counts once it is first shown.
+ *
+ * The path is sent without its query string or a trailing index.html, so each
+ * page has a single entry however it was reached; the query string goes in
+ * `q`, where GoatCounter reads campaign tags.
+ */
+---
+
+<script>
+  import { ANALYTICS } from '@/config';
+
+  const count = () => {
+    const params = new URLSearchParams({
+      p: location.pathname.replace(/index\.html$/, ''),
+      t: document.title,
+      s: String(screen.width),
+      rnd: Math.random().toString(36).slice(2, 7),
+    });
+    if (document.referrer) params.set('r', document.referrer);
+    if (location.search) params.set('q', location.search);
+    const url = `https://${ANALYTICS.goatcounterCode}.goatcounter.com/count?${params}`;
+    if (!navigator.sendBeacon?.(url)) new Image().src = url;
+  };
+
+  if (
+    import.meta.env.PROD &&
+    location.hostname === new URL(import.meta.env.SITE).hostname &&
+    window.self === window.top &&
+    !navigator.webdriver
+  ) {
+    if (document.visibilityState === 'visible') {
+      count();
+    } else {
+      const onVisible = () => {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', onVisible);
+        count();
+      };
+      document.addEventListener('visibilitychange', onVisible);
+    }
+  }
+</script>
