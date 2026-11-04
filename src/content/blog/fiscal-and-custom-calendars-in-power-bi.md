@@ -34,7 +34,7 @@ Companies are no better. Retailers often start in February, so the Christmas rus
 
 So if your reports assume January, they're wrong for a big chunk of the planet, including, awkwardly, the people who wrote the software. Power BI, today I'm coming for *you*!
 
-## Why every new report thinks the year starts in January (and other lies Power BI tells)
+## Why every new report thinks the year starts in January
 
 Open a new Power BI file, drag a date field onto a visual and you get a tidy Year › Quarter › Month › Day hierarchy.
 
