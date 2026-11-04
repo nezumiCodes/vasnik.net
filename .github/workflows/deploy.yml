@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Daily rebuild so posts with a future pubDate go live on that date without a
+  # push (src/lib/posts.ts). UTC; GitHub can start scheduled runs late.
+  schedule:
+    - cron: '7 0 * * *'
 
 # Nothing by default; each job asks only for what it needs.
 permissions: {}

@@ -15,7 +15,7 @@ Copy this file to start a new post, rename it to the post's URL slug (for exampl
 | --- | --- | --- |
 | `title` | Yes | Up to 90 characters |
 | `description` | Yes | Up to 160 characters, used for search results and cards |
-| `pubDate` | Yes | `YYYY-MM-DD` |
+| `pubDate` | Yes | `YYYY-MM-DD`; a future date keeps the post off the live site until the daily rebuild on that date (00:07 UTC or a little later) |
 | `updatedDate` | No | Not earlier than `pubDate` |
 | `tags` | No | Lowercase kebab-case, e.g. `power-automate` |
 | `draft` | No | `true` hides the post from the live site |
