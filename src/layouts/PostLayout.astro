@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import ImageZoom from '@/components/ImageZoom.astro';
 import TagList from '@/components/TagList.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { formatDate, isoDate } from '@/lib/dates';
@@ -70,7 +71,7 @@ const mediumWhere = medium?.publication ? `in ${medium.publication} on Medium` :
             fetchpriority="high"
           />
           {heroCredit && (
-            <figcaption class="mt-2 text-sm text-muted">
+            <figcaption class="mt-2 text-center text-sm text-muted">
               Photo by{' '}
               <a href={heroCredit.authorUrl} rel="noopener">
                 {heroCredit.author}
@@ -89,6 +90,8 @@ const mediumWhere = medium?.publication ? `in ${medium.publication} on Medium` :
       <slot />
     </div>
   </article>
+
+  {post.body?.includes('figure-diagram') && <ImageZoom />}
 
   {
     (newer || older) && (

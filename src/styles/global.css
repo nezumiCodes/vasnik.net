@@ -513,6 +513,70 @@ html {
     font-weight: 400;
     color: var(--c-muted);
   }
+
+  /*
+   * Full-screen view for enlargeable post diagrams (ImageZoom.astro). The
+   * frame is a size container, so the image fills the space available while
+   * keeping its aspect ratio (--zoom-ratio, set by the script).
+   */
+  .zoom-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: color-mix(in srgb, var(--c-bg) 94%, transparent);
+    color: var(--c-fg);
+    cursor: zoom-out;
+
+    &::backdrop {
+      background: transparent;
+    }
+  }
+
+  .zoom-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+  }
+
+  .zoom-frame {
+    position: absolute;
+    inset: 4.5rem 1rem 1rem;
+    display: grid;
+    place-items: center;
+    container-type: size;
+  }
+
+  .zoom-frame img {
+    --zoom-pad: 0.75rem;
+    box-sizing: border-box;
+    width: min(100cqw, (100cqh - 2 * var(--zoom-pad)) * var(--zoom-ratio, 1) + 2 * var(--zoom-pad));
+    height: auto;
+    padding: var(--zoom-pad);
+    border-radius: 6px;
+    background-color: var(--c-figure-bg);
+  }
+}
+
+html:has(.zoom-dialog[open]) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .zoom-dialog[open] {
+    animation: zoom-fade 150ms ease-out;
+  }
+
+  @keyframes zoom-fade {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 /* Hero background: faint data grid that fades out, plus the theme glow. */
@@ -726,6 +790,48 @@ html {
 
   & :where(figcaption) {
     text-align: center;
+  }
+
+  /* Enlargeable diagrams (src/lib/rehype-zoomable.mjs, src/components/ImageZoom.astro). */
+  & :where(a.zoom-link) {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    border-radius: 6px;
+    cursor: zoom-in;
+  }
+
+  & :where(a.zoom-link img) {
+    margin-block: 0;
+  }
+
+  & :where(.zoom-badge) {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid var(--c-flow);
+    border-radius: 999px;
+    background-color: var(--c-card);
+    color: var(--c-label);
+  }
+
+  & :where(a.zoom-link:hover .zoom-badge, a.zoom-link:focus-visible .zoom-badge) {
+    border-color: var(--c-highlight);
+    color: var(--c-highlight);
+  }
+
+  & :where(.zoom-hint) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   /*

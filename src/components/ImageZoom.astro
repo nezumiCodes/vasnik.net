@@ -1,0 +1,38 @@
+---
+// Full-screen view for post diagrams. src/lib/rehype-zoomable.mjs wraps each
+// figure-diagram image in a link to the file; this script turns a plain click
+// on that link into a modal <dialog> instead (rendered only on posts with a
+// diagram, to keep page JavaScript small). Ctrl/Cmd/Shift-click and
+// no-JavaScript visits still follow the link. Esc, the Close button or a click
+// anywhere closes it, and the browser returns focus to the link.
+---
+
+<dialog class="zoom-dialog" aria-label="Enlarged image" data-zoom-dialog>
+  <button type="button" class="button button-ghost zoom-close">Close</button>
+  <div class="zoom-frame">
+    <img alt="" />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-zoom-dialog]');
+  const image = dialog?.querySelector('img');
+
+  if (dialog && image) {
+    // Covers the Close button, the image and the surrounding overlay.
+    dialog.onclick = () => dialog.close();
+
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('.prose .zoom-link')) {
+      // click fires for the primary button and keyboard activation only.
+      link.onclick = (event) => {
+        const source = link.querySelector('img');
+        if (!source || event.ctrlKey || event.metaKey || event.shiftKey) return;
+        event.preventDefault();
+        image.src = source.src;
+        image.alt = source.alt;
+        image.style.setProperty('--zoom-ratio', `${source.width / source.height}`);
+        dialog.showModal();
+      };
+    }
+  }
+</script>

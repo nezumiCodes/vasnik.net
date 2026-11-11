@@ -1,9 +1,11 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import rehypeRaw from 'rehype-raw';
 import tailwindcss from '@tailwindcss/vite';
 import { THEME_SCRIPT, cspHash } from './src/lib/inline-scripts.mjs';
 import { ANALYTICS } from './src/config.ts';
+import rehypeZoomable from './src/lib/rehype-zoomable.mjs';
 
 const EXCLUDED_FROM_SITEMAP = ['/404/'];
 
@@ -25,6 +27,10 @@ export default defineConfig({
     // Prism emits classes (styled with brand tokens in global.css); Shiki's
     // inline style attributes would be blocked by the CSP below.
     syntaxHighlight: 'prism',
+    // Wraps figure-diagram images in a link with a magnifier badge (see
+    // ImageZoom.astro). Astro parses raw HTML only after user plugins, so
+    // rehype-raw runs first to turn the posts' <figure> markup into elements.
+    rehypePlugins: [rehypeRaw, rehypeZoomable],
   },
   security: {
     // Emitted as a <meta> tag (GitHub Pages cannot send headers). Astro adds

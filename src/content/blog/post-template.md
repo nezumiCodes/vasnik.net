@@ -43,7 +43,7 @@ medium:
 
 These patterns are written as HTML inside the Markdown. Keep each block free of blank lines.
 
-- **Diagram with a caption:** put the image in `public/blog/<slug>/` and use `<figure class="figure-diagram">` with an `<img>` (`width`, `height`, `alt`, `loading="lazy"`) and a `<figcaption>`. The image sits on a white panel, so dark lines stay visible in dark mode.
+- **Diagram with a caption:** put the image in `public/blog/<slug>/` and use `<figure class="figure-diagram">` with an `<img>` (`width`, `height`, `alt`, `loading="lazy"`) and a `<figcaption>`. The image sits on a white panel, so dark lines stay visible in dark mode. Keep the `<img>` a direct child of the `<figure>`: the build then adds a magnifier badge, and clicking the image opens it full-screen.
 - **Data table with a caption:** `<figure class="figure-table">` containing one or more `<table>`s. Give each table a `<caption>`, mark row headers with `<th scope="row">`, and add a `<figcaption>`. Wide tables scroll sideways on phones.
 - **Formula:** wrap MathML in `<div class="math-block">`, with `<math display="block" alttext="…">` written out in words. Browsers render MathML natively, with no scripts, so it works under the CSP and follows the theme. Don't use formula images: they are unreadable in dark mode.
 - **Never** embed third-party scripts (GitHub Gists, CodePen, tweets): the CSP blocks them. Copy the content into the post instead.
