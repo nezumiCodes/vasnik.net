@@ -15,7 +15,6 @@ heroCredit:
   authorUrl: https://www.vecteezy.com/free-vector/crow
   source: Vecteezy
   sourceUrl: https://www.vecteezy.com
-draft: true
 ---
 
 In Part 1 I argued that a client not using their nearest pharmacy is a question to ask, not an error to fix. But to even ask the question, you need to know which pharmacy *is* nearest. I assumed that would be the easy bit. It took me about a day (not long, I know, but even a day can be too long when some things are urgent) to realise that "nearest" depends entirely on how you measure, and about a week to stop finding new ways it could be wrong.
