@@ -21,7 +21,7 @@ In Part 1 I argued that a client not using their nearest pharmacy is a question 
 
 This post covers what "closest" can mean, the free, self-hosted and commercial tools for measuring it, how to go from "nearest pharmacy" to an allocation that respects capacity, client restrictions, and the data protection questions to ask before you send anyone's postcode anywhere.
 
-There isn't any code in this post, as the aim is to help you choose an approach that fits your own service. Part 3 will include a self-hosted implementation that anyone can use and adjust for their service's needs.
+There isn't any code in this post, as the aim is to help you choose an approach that fits your own service. Part 3 will include a free, open-source tool that any service can use in a web browser, without client data ever leaving the user's device.
 
 ## What does "closest" actually mean?
 
@@ -127,13 +127,13 @@ Some practical steps:
 
 Working on this, I realised that every drug and alcohol service (and plenty of other health and care services) faces the same question, and most are probably building their own spreadsheet or script from scratch.
 
-So my next project, and the last part of this series, is an open, self-hostable version that any service can run on its own infrastructure. The plan is:
+So my next project, and the last part of this series, is an open-source web app that any service can open in a browser, with nothing to install. The heavy lifting uses only public data and is done in advance, and everything about clients stays on the user's own device, which a service's IG team can check for themselves. The plan is:
 
-- postcodes.io and a routing engine running locally in Docker, so no client data leaves the building
-- the NHSBSA pharmacy list loaded automatically, joined to the service's own approved list and capacity
-- walking and driving distances as standard, with public transport as an option for areas where it matters
-- a shortlist per client and flags for large gaps, missing addresses and pharmacies that have closed or changed hours
-- optional "what if" planning scenarios with a capacity-aware optimiser
+- travel distances from every postcode to its nearby pharmacies, worked out in advance from public data (ONS postcodes, OpenStreetMap and OSRM) and published as files the app downloads one area at a time
+- the national pharmacy lists for England, Scotland and Wales loaded automatically, joined to the service's own approved list, capacity and access details, which stay in the browser
+- straight-line, walking and driving distances as standard, with wheelchair routes and public transport times to follow
+- a shortlist per client, worked out entirely in the browser, with flags for large gaps, missing addresses and pharmacies that have closed or changed hours
+- optional "what if" planning scenarios with a capacity-aware optimiser, also running in the browser
 
 If your service has tackled this, or you'd like to test it when it's ready, I'd love to hear from you.
 
